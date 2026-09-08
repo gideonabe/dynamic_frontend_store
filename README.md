@@ -86,18 +86,18 @@ The following baseline was captured with Lighthouse against the local applicatio
 
 | Category | Score |
 | --- | ---: |
-| Performance | 95 |
-| Accessibility | 96 |
-| Best Practices | 100 |
+| Performance | 85 |
+| Accessibility | 95 |
+| Best Practices | 96 |
 | SEO | 100 |
 
 | Metric | Result |
 | --- | ---: |
-| First Contentful Paint | 0.8 s |
-| Largest Contentful Paint | 8.8 s |
-| Total Blocking Time | 420 ms |
-| Cumulative Layout Shift | 0 |
-| Speed Index | 1.2 s |
+| First Contentful Paint | 0.2 s |
+| Largest Contentful Paint | 0.4 s |
+| Total Blocking Time | 10 ms |
+| Cumulative Layout Shift | 0.3 |
+| Speed Index | 0.6 s |
 
 ### Findings and next steps
 

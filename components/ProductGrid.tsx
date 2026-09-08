@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import AccessibleProductCard from "@/components/AccessibleProductCard";
 import { useStore } from "./StoreContext";
 import { FakeStoreProduct } from "@/types/ecommerce";
-import LoadingView from '../app/loading';
+import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function ProductGrid() {
   const { selectedCategory } = useStore();
@@ -39,7 +39,7 @@ export default function ProductGrid() {
   // Loading State
   if (loading) {
     return (
-      <LoadingView />
+      <LoadingSkeleton />
     );
   }
 

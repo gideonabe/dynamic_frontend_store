@@ -1,4 +1,4 @@
-export default function Loading() {
+export default function LoadingSkeleton() {
   return (
     <main className="max-w-7xl mx-auto px-4 mt-12 pb-20" aria-busy="true" aria-live="polite">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
