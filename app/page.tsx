@@ -1,5 +1,7 @@
 import ProductGrid from "@/components/ProductGrid";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <main id="main-content" className="pb-20 bg-white">
