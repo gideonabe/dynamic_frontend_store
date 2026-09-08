@@ -27,11 +27,12 @@ export default function FilteredProducts({
   }
 
   return (
-    <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-      {filteredProducts.map((product) => (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+      {filteredProducts.map((product, index) => (
         <AccessibleProductCard
           key={product.id}
           product={product}
+          priority={index < 4}
         />
       ))}
     </div>

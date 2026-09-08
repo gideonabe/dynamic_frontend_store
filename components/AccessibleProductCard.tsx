@@ -2,7 +2,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FakeStoreProduct } from '@/types/ecommerce';
 
-export default function AccessibleProductCard({ product }: { product: FakeStoreProduct }) {
+export default function AccessibleProductCard({
+  product,
+  priority = false,
+}: {
+  product: FakeStoreProduct;
+  priority?: boolean;
+}) {
   return (
     <article className="group block relative focus-within:ring-2 focus-within:ring-pl-plum focus-within:ring-offset-2 rounded-2xl">
       <Link href={`/product/${product.id}`} className="block outline-none" aria-label={`View details for ${product.title}`}>
@@ -11,9 +17,9 @@ export default function AccessibleProductCard({ product }: { product: FakeStoreP
             src={product.image}
             alt={`Image of ${product.title}`}
             fill
-            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            sizes="(max-width: 768px) 33vw, (max-width: 1200px) 33vw, 25vw"
             className="object-contain p-6 group-hover:scale-105 transition-transform duration-300"
-            loading="lazy"
+            priority={priority}
           />
         </div>
         <div className="mt-4 space-y-1">
