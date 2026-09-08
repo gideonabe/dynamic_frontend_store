@@ -1,39 +1,16 @@
-// import { fetchProducts } from "@/lib/products";
-// import FilteredProducts from "./FilteredProducts";
-
-// export default async function ProductGrid() {
-//   const products = await fetchProducts();
-
-//   if (!products || products.length === 0) {
-//     return (
-//       <p
-//         className="text-lg text-gray-500 font-medium text-center py-20"
-//         role="status"
-//       >
-//         No products currently available in the store.
-//       </p>
-//     );
-//   }
-
-//   return <FilteredProducts products={products} />;
-// }
-
-
-
-
 "use client";
 
 import { useEffect, useState } from "react";
 import AccessibleProductCard from "@/components/AccessibleProductCard";
 import { useStore } from "./StoreContext";
 import { FakeStoreProduct } from "@/types/ecommerce";
-import Loading from "@/app/loading";
+import LoadingView from '../app/loading';
 
 export default function ProductGrid() {
   const { selectedCategory } = useStore();
   const [products, setProducts] = useState<FakeStoreProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     async function loadProducts() {
@@ -48,10 +25,9 @@ export default function ProductGrid() {
         
         const data = await res.json();
         setProducts(data);
-        setError(null);
       } catch (err: any) {
         console.error("Client fetch failed:", err);
-        setError(err.message || "Failed to load products from store.");
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -63,7 +39,7 @@ export default function ProductGrid() {
   // Loading State
   if (loading) {
     return (
-      <Loading />
+      <LoadingView />
     );
   }
 

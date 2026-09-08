@@ -1,6 +1,7 @@
 # DEON Store
 
 DEON is a responsive storefront built with Next.js. It loads product data from the Fake Store API and lets shoppers browse the catalogue by category, inspect product cards, and add products to a client-side cart.
+
 ![DEON Store storefront screenshot](public/screenshot.png)
 
 ## Project Links
@@ -17,6 +18,27 @@ DEON is a responsive storefront built with Next.js. It loads product data from t
 - Loading and error states for the main product view
 - Runtime rendering for the home page so deployment builds do not depend on the external API being available during prerendering
 
+## Technical Notes & Architecture Decisions
+
+### Bypassing Cloud Hosting Blockades (FakeStoreAPI 403 Forbidden Error)
+
+During production deployment on Vercel, the application initially encountered `403 Forbidden` network errors when executing server-side data fetches. 
+
+#### The Problem
+`FakeStoreAPI` utilizes strict infrastructure firewall policies (managed via Cloudflare) that flag and completely block incoming traffic originating from well-known cloud hosting IP ranges (Vercel, Netlify, AWS, etc.) to prevent automated scraping or denial-of-service abuse. While server-side data fetching (`getServerSideProps`, Server Components, or internal API proxies) worked perfectly on `localhost`, it failed reliably on the live production server.
+
+#### The Solution (Client-Side Hydration)
+To bypass this limitation without sacrificing UX, data fetching was migrated entirely to **Client-Side Fetching** using React's `useEffect` hook. 
+* By shifting the network request to the client side, API requests originate natively from the end-user's residential or mobile internet IP address rather than the cloud network.
+* **Layout Shifts & UX Prevention:** To prevent structural layout pops while the client fetches the API payload, the client-side state hooks smoothly handle loading boundaries by rendering a localized, accessible SVG skeleton loader (`loading.tsx`) until the component completely hydrates.
+
+### Image Optimization & Core Web Vitals (LCP)
+
+To prevent Lighthouse warnings regarding **Largest Contentful Paint (LCP)**, image prioritization is calculated dynamically based on layout position rather than applying blanket settings:
+* **The Problem:** Setting `loading="eager"` or `priority` on all 20 store items causes massive bandwidth waste. Conversely, leaving them all on default lazy-loading forces browsers to delay fetching above-the-fold images, destroying the LCP score.
+* **The Solution:** The grid passes a conditional boolean property (`priority={index < 4}`) to the image components. This tells Next.js to pre-render and prioritize the first four visible hero cards immediately, while automatically lazy-loading the remaining 16 items beneath the fold.
+
+
 ## Technology
 
 - Next.js `16.3.4` with the App Router
@@ -24,6 +46,7 @@ DEON is a responsive storefront built with Next.js. It loads product data from t
 - Tailwind CSS v4
 - Lucide React icons
 - Fake Store API: `https://fakestoreapi.com`
+
 
 ## Run Locally
 
