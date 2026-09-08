@@ -5,7 +5,7 @@ DEON is a responsive storefront built with Next.js. It loads product data from t
 
 ## Project Links
 - **GitHub repository:** [github.com/gideonabe/dynamic_frontend_store](https://github.com/gideonabe/dynamic_frontend_store)
-- **Live deployment:** _Add the deployed URL here after deployment._
+- **Live deployment:** [https://dynamic-frontend-store.vercel.app](https://dynamic-frontend-store.vercel.app)
 
 ## Features
 
