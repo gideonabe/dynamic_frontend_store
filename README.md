@@ -38,6 +38,27 @@ To prevent Lighthouse warnings regarding **Largest Contentful Paint (LCP)**, ima
 * **The Problem:** Setting `loading="eager"` or `priority` on all 20 store items causes massive bandwidth waste. Conversely, leaving them all on default lazy-loading forces browsers to delay fetching above-the-fold images, destroying the LCP score.
 * **The Solution:** The grid passes a conditional boolean property (`priority={index < 4}`) to the image components. This tells Next.js to pre-render and prioritize the first four visible hero cards immediately, while automatically lazy-loading the remaining 16 items beneath the fold.
 
+## Performance Report
+
+### Lighthouse baseline
+
+The following baseline was captured with Lighthouse and PageSpeedInsight against the deployed URL application. Scores can vary with network conditions, API response time, device emulation.
+
+| Category | Score |
+| --- | ---: |
+| Performance | 97 |
+| Accessibility | 95 |
+| Best Practices | 96 |
+| SEO | 100 |
+
+| Metric | Result |
+| --- | ---: |
+| First Contentful Paint | 0.2 s |
+| Largest Contentful Paint | 0.4 s |
+| Total Blocking Time | 10 ms |
+| Cumulative Layout Shift | 0.3 |
+| Speed Index | 0.6 s |
+
 
 ## Technology
 
@@ -78,26 +99,6 @@ For Vercel:
 4. Add the resulting URL to the **Live deployment** link above.
 
 The home route is configured as dynamic because product data comes from an external API. The deployment therefore needs a server runtime; it is not configured as a static export.
-## Performance Report
-
-### Lighthouse baseline
-
-The following baseline was captured with Lighthouse against the local application at `http://localhost:3000` on September 8, 2026. Scores can vary with network conditions, API response time, device emulation, and whether the test is run against the deployed URL.
-
-| Category | Score |
-| --- | ---: |
-| Performance | 85 |
-| Accessibility | 95 |
-| Best Practices | 96 |
-| SEO | 100 |
-
-| Metric | Result |
-| --- | ---: |
-| First Contentful Paint | 0.2 s |
-| Largest Contentful Paint | 0.4 s |
-| Total Blocking Time | 10 ms |
-| Cumulative Layout Shift | 0.3 |
-| Speed Index | 0.6 s |
 
 ### Findings and next steps
 
